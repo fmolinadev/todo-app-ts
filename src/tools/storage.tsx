@@ -15,3 +15,7 @@ export const getToDosFromStorage = <T,>(): T => {
   const flagData = localStorage.getItem(TODOS_STORAGE);
   return flagData ? JSON.parse(flagData) : [];
 };
+
+export const clearToDosFromStorage = () => {
+  return localStorage.clear();
+};
