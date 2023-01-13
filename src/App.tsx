@@ -27,10 +27,14 @@ function App() {
     });
   };
   return (
-    <div className="App">
-      <h2>Lista de tareas:</h2>
-      <Form createToDo={createTodoHandler} />
-      <ToDo todoData={todos} updateOrDeleteTodo={updateOrDeleteTodoHandler} />
+    <div className="flex">
+      <div className="justify-center items-center mx-auto md:max-w-screen-lg 2xl:max-w-screen-xl py-7">
+        <h2 className="text-2xl md:text-4xl font-extralight text-white/50 text-center py-3">
+          Lista de tareas para hoy:
+        </h2>
+        <Form createToDo={createTodoHandler} />
+        <ToDo todoData={todos} updateOrDeleteTodo={updateOrDeleteTodoHandler} />
+      </div>
     </div>
   );
 }

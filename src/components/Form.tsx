@@ -7,8 +7,9 @@ interface Props {
 export const Form = ({ createToDo }: Props) => {
   const [todoText, setTodoText] = useState<string>("");
 
-  const changeHandler = (e: React.FormEvent<HTMLInputElement>): void =>
+  const changeHandler = (e: React.FormEvent<HTMLInputElement>): void => {
     setTodoText(e.currentTarget.value);
+  };
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -19,10 +20,10 @@ export const Form = ({ createToDo }: Props) => {
   };
 
   return (
-    <form className="w-full max-w-sm" onSubmit={submitHandler}>
-      <div className="flex items-center border-b border-teal-500 py-2">
+    <form className="w-full max-w-sm py-4" onSubmit={submitHandler}>
+      <div className="flex items-center  py-2 ">
         <input
-          className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          className="appearance-none bg-transparent border-b border-teal-500 border-opacity-30 w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="text"
           placeholder="Tengo pendiente..."
           aria-label="Tarea pendiente"
