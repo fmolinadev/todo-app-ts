@@ -60,8 +60,10 @@ export const ToDo = ({ todoData, updateOrDeleteTodo }: Props) => {
               key={oneTodo.id}
               className="bg-fill-yellow drop-shadow-2xl relative group py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-back-fill-hover hover:smooth-hover max-w-md"
             >
-              <h3 className="max-w-md">{oneTodo.text}</h3>
-              <p>{oneTodo.date}</p>
+              <h3 className="max-w-md text-center font-medium">
+                {oneTodo.text}
+              </h3>
+              <p>Creada: {oneTodo.date}</p>
               <button
                 onClick={() => updateOrDeleteTodo(oneTodo.id, oneTodo.isDone)}
               >
@@ -78,8 +80,10 @@ export const ToDo = ({ todoData, updateOrDeleteTodo }: Props) => {
               key={oneTodo.id}
               className="bg-fill-green-mid drop-shadow-2xl relative group py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-fill-green hover:smooth-hover"
             >
-              <h3>{oneTodo.text}</h3>
-              <p>{oneTodo.date}</p>
+              <h3 className="max-w-md text-center font-medium">
+                {oneTodo.text}
+              </h3>
+              <p>Creada: {oneTodo.date}</p>
               <button
                 onClick={() => updateOrDeleteTodo(oneTodo.id, oneTodo.isDone)}
               >

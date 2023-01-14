@@ -20,7 +20,10 @@ export const Form = ({ createToDo }: Props) => {
   };
 
   return (
-    <form className="w-full max-w-sm py-4" onSubmit={submitHandler}>
+    <form
+      className="w-full max-w-sm py-4 flex justify-center items-center mx-auto"
+      onSubmit={submitHandler}
+    >
       <div className="flex items-center  py-2 ">
         <input
           className="appearance-none bg-transparent border-b border-teal-500 border-opacity-30 w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
