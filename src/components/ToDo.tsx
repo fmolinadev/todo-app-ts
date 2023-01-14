@@ -6,7 +6,7 @@ import {
 } from "../tools/storage";
 import { TodoType } from "../types";
 import img from "../assets/back_paper.png";
-
+import Swal from "sweetalert2";
 interface Props {
   todoData: Array<TodoType>;
   updateOrDeleteTodo: (id: string, isDone?: boolean) => void;
@@ -27,12 +27,38 @@ export const ToDo = ({ todoData, updateOrDeleteTodo }: Props) => {
     (async () => {
       const isDataStored = await setToDosInStorage(todoData);
       setIsDataStored(isDataStored);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "¡Notas guardadas!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     })();
   };
 
   const deleteStore = () => {
-    setIsDataStored(false);
-    clearToDosFromStorage();
+    Swal.fire({
+      title: "¡Cuidado!",
+      text: "¿Deseas eliminar las notas guardadas? La proxima vez que ingreses no veras el respaldo de las notas creadas y guardadas hasta el momento.",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#1cacab",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, olvidar notas",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "¡Respaldo eliminado!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setIsDataStored(false);
+        clearToDosFromStorage();
+      }
+    });
   };
 
   if (todoData.length === 0) {
@@ -58,11 +84,9 @@ export const ToDo = ({ todoData, updateOrDeleteTodo }: Props) => {
           return oneTodo.isDone !== true ? (
             <li
               key={oneTodo.id}
-              className="bg-fill-yellow drop-shadow-2xl relative group py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-back-fill-hover hover:smooth-hover max-w-md"
+              className="bg-fill-yellow drop-shadow-2xl relative group py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-back-fill-hover hover:smooth-hover w-64 max-w-md h-48 md:h-64"
             >
-              <h3 className="max-w-md text-center font-medium">
-                {oneTodo.text}
-              </h3>
+              <h3 className="text-center font-medium">{oneTodo.text}</h3>
               <p>Creada: {oneTodo.date}</p>
               <button
                 onClick={() => updateOrDeleteTodo(oneTodo.id, oneTodo.isDone)}
@@ -70,7 +94,10 @@ export const ToDo = ({ todoData, updateOrDeleteTodo }: Props) => {
                 Marcar como {oneTodo.isDone ? "pendiente" : "completada"}
               </button>
               {oneTodo.isDone && (
-                <button onClick={() => updateOrDeleteTodo(oneTodo.id)}>
+                <button
+                  className="flex-shrink-0 bg-transparent hover:bg-back-red hover:border-back-red text-sm hover:border-4 text-text-fill hover:text-text-white py-1 px-2 rounded"
+                  onClick={() => updateOrDeleteTodo(oneTodo.id)}
+                >
                   Eliminar
                 </button>
               )}
@@ -78,11 +105,9 @@ export const ToDo = ({ todoData, updateOrDeleteTodo }: Props) => {
           ) : (
             <li
               key={oneTodo.id}
-              className="bg-fill-green-mid drop-shadow-2xl relative group py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-fill-green hover:smooth-hover"
+              className="bg-fill-green-mid drop-shadow-2xl relative group py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-fill-green hover:smooth-hover w-64 max-w-md h-48 md:h-64"
             >
-              <h3 className="max-w-md text-center font-medium">
-                {oneTodo.text}
-              </h3>
+              <h3 className="text-center font-medium">{oneTodo.text}</h3>
               <p>Creada: {oneTodo.date}</p>
               <button
                 onClick={() => updateOrDeleteTodo(oneTodo.id, oneTodo.isDone)}
@@ -90,7 +115,10 @@ export const ToDo = ({ todoData, updateOrDeleteTodo }: Props) => {
                 Marcar como {oneTodo.isDone ? "pendiente" : "completada"}
               </button>
               {oneTodo.isDone && (
-                <button onClick={() => updateOrDeleteTodo(oneTodo.id)}>
+                <button
+                  className="flex-shrink-0 bg-transparent hover:bg-back-red hover:border-back-red text-sm hover:border-4 text-text-fill hover:text-text-white py-1 px-2 rounded"
+                  onClick={() => updateOrDeleteTodo(oneTodo.id)}
+                >
                   Eliminar
                 </button>
               )}
@@ -99,21 +127,22 @@ export const ToDo = ({ todoData, updateOrDeleteTodo }: Props) => {
         })}
       </ul>
       <div className="px-4 py-3 text-center">
-        <button
-          className="py-2 px-4 bg-none mr-2"
-          onClick={storeTodosHandler}
-          disabled={isDataStored}
-        >
-          Guardar lista
-        </button>
         {isDataStored ? (
           <button
-            className="py-2 px-4 bg-none rounded  mr-2"
+            className="py-2 px-4 bg-none rounded bg-transparent hover:bg-back-red hover:border-back-red text-sm text-text-fill hover:text-text-white active:bg-none"
             onClick={deleteStore}
           >
-            Olvidar listas
+            Olvidar lista
           </button>
-        ) : null}
+        ) : (
+          <button
+            className="py-2 px-4 bg-none border active:bg-fill-green border-fill-green-mid border-opacity-30 rounded bg-transparent hover:bg-fill-green-mid text-sm  text-text-fill hover:text-text-white"
+            onClick={storeTodosHandler}
+            disabled={isDataStored}
+          >
+            Guardar lista
+          </button>
+        )}
       </div>
     </section>
   );

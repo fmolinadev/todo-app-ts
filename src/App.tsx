@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { Form } from "./components/Form";
 import { ToDo } from "./components/ToDo";
 import { useTodoHook } from "./hooks/useTodoHook";
@@ -12,6 +13,13 @@ function App() {
         text: newTodoText,
       },
     });
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Nota creada con éxito.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const updateOrDeleteTodoHandler = (id: string, isDone?: boolean): void => {
@@ -21,9 +29,28 @@ function App() {
         payload: { id },
       });
     }
-    dispatch({
-      type: "delete",
-      payload: { id },
+    Swal.fire({
+      title: "¡Cuidado!",
+      text: "¿Deseas eliminar esta nota? Esto la quita del tablero de manera permanente.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#1cacab",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, estoy seguro",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch({
+          type: "delete",
+          payload: { id },
+        });
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "¡Nota eliminada!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     });
   };
   return (

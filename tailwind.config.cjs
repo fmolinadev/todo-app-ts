@@ -15,6 +15,7 @@ module.exports = {
       "back-fill-light": "#c8f3f0",
       "pointer-circle": "#00e059",
       "back-fill-hover": "#ffff00",
+      "back-red": "#d33",
     },
   },
   plugins: [],
