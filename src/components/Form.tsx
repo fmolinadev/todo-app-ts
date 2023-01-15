@@ -35,7 +35,7 @@ export const Form = ({ createToDo }: Props) => {
           autoComplete="off"
         />
         <button
-          className="flex-shrink-0 bg-fill-green hover:bg-pointer-circle border-fill-green hover:border-pointer-circle text-sm border-4 text-text-white py-1 px-2 rounded"
+          className="flex-shrink-0 bg-fill-green hover:bg-back-fill-dark border-fill-green hover:border-back-fill-dark text-sm border-4 text-text-white py-1 px-2 rounded"
           type="submit"
           disabled={!todoText}
         >

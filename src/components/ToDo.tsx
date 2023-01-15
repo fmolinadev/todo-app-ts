@@ -7,6 +7,7 @@ import {
 import { TodoType } from "../types";
 import img from "../assets/back_paper.png";
 import Swal from "sweetalert2";
+import { Card } from "./Card";
 interface Props {
   todoData: Array<TodoType>;
   updateOrDeleteTodo: (id: string, isDone?: boolean) => void;
@@ -81,49 +82,7 @@ export const ToDo = ({ todoData, updateOrDeleteTodo }: Props) => {
         className="mb-10 md:max-w-screen-lg 2xl:max-w-screen-xl sm:mb-0 mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-5 lg:p-10 rounded-3xl"
       >
         {todoData.map((oneTodo) => {
-          return oneTodo.isDone !== true ? (
-            <li
-              key={oneTodo.id}
-              className="bg-fill-yellow drop-shadow-2xl relative group py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-back-fill-hover hover:smooth-hover w-64 max-w-md h-48 md:h-64"
-            >
-              <h3 className="text-center font-medium">{oneTodo.text}</h3>
-              <p>Creada: {oneTodo.date}</p>
-              <button
-                onClick={() => updateOrDeleteTodo(oneTodo.id, oneTodo.isDone)}
-              >
-                Marcar como {oneTodo.isDone ? "pendiente" : "completada"}
-              </button>
-              {oneTodo.isDone && (
-                <button
-                  className="flex-shrink-0 bg-transparent hover:bg-back-red hover:border-back-red text-sm hover:border-4 text-text-fill hover:text-text-white py-1 px-2 rounded"
-                  onClick={() => updateOrDeleteTodo(oneTodo.id)}
-                >
-                  Eliminar
-                </button>
-              )}
-            </li>
-          ) : (
-            <li
-              key={oneTodo.id}
-              className="bg-fill-green-mid drop-shadow-2xl relative group py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-fill-green hover:smooth-hover w-64 max-w-md h-48 md:h-64"
-            >
-              <h3 className="text-center font-medium">{oneTodo.text}</h3>
-              <p>Creada: {oneTodo.date}</p>
-              <button
-                onClick={() => updateOrDeleteTodo(oneTodo.id, oneTodo.isDone)}
-              >
-                Marcar como {oneTodo.isDone ? "pendiente" : "completada"}
-              </button>
-              {oneTodo.isDone && (
-                <button
-                  className="flex-shrink-0 bg-transparent hover:bg-back-red hover:border-back-red text-sm hover:border-4 text-text-fill hover:text-text-white py-1 px-2 rounded"
-                  onClick={() => updateOrDeleteTodo(oneTodo.id)}
-                >
-                  Eliminar
-                </button>
-              )}
-            </li>
-          );
+          return <Card oneTodo={oneTodo} setChange={updateOrDeleteTodo} />;
         })}
       </ul>
       <div className="px-4 py-3 text-center">
