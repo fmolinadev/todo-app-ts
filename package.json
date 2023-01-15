@@ -1,5 +1,6 @@
 {
   "name": "todo-app-ts",
+  "author": "Francisco D. Molina",
   "private": true,
   "version": "0.0.0",
   "type": "module",
